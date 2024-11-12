@@ -22,6 +22,10 @@ app.add_middleware(
     allow_headers=["*"],        
 )
 
+@app.get('/')
+def hello_world():
+    return "API is running"
+
 # Register the routers
 app.include_router(upload.router, tags=["upload"])
 app.include_router(ask_question.router, tags=["ask_question"])
