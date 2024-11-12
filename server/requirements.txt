@@ -5,9 +5,9 @@ dotenv
 fastapi-cors
 huggingface_hub
 transformers
-psycopg2  # PostgreSQL adapter for Python
-pydantic  # For data validation
-sqlalchemy  # ORM for PostgreSQL
-requests  # For making HTTP requests (if needed by LangChain or other integrations)
-openai  # Optional, if using OpenAI API within LangChain
-python-multipart  # For handling file uploads in FastAPI
+psycopg2
+pydantic
+sqlalchemy
+requests
+openai
+fitz
