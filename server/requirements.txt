@@ -1,7 +1,9 @@
 fastapi
 uvicorn
 langchain
-dotenv
+langchain_community
+langchain_huggingface
+python-dotenv
 fastapi-cors
 huggingface_hub
 transformers
@@ -10,4 +12,5 @@ pydantic
 sqlalchemy
 requests
 openai
-fitz
+pymupdf
+python-multipart
