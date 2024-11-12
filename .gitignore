@@ -1,0 +1,93 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+server/.env
+client/.env
+server/venv/
+# *.env
+# .env.*
+
+# Python virtual environments
+# env/
+venv/
+.venv/
+
+# Byte-compiled / optimized / compiled files
+*.pyc
+*.pyo
+*.pyd
+*.whl
+
+# FastAPI specific
+instance/
+*.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+yarn.lock
+package-lock.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+dist/
+.vite
+
+# React & Vite build artifacts
+build/
+public/static/
+
+# Database
+*.sqlite3
+*.db
+
+# IDEs and text editors
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Backup files
+*.bak
+*.swp
+*.swo
+*~
+
+# Coverage
+coverage/
+*.cover
+*.coverage
+coverage.xml
+*.lcov
