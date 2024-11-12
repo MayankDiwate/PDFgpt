@@ -8,6 +8,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5175",
+    "https://pd-fgpt-liart.vercel.app/",
     "http://localhost:3000",
     "http://localhost:5173"
 ]
