@@ -33,5 +33,4 @@
   },
   "include": ["src"],
   "noEmit": false,
-  "references": [{ "path": "./tsconfig.app.json" }]
 }
