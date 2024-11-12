@@ -1,22 +1,18 @@
+import os
+from endpoints import upload, ask_question
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from endpoints import upload, ask_question
 from dotenv import load_dotenv
 load_dotenv()
 
-app = FastAPI()
+clientUrl = os.getenv("CLIENT_BASE_URL")
 
-origins = [
-    "http://localhost:5175",
-    "https://pdf-gpt-client.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:5173"
-]
+app = FastAPI()
 
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=[clientUrl],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],        
