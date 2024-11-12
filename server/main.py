@@ -23,8 +23,8 @@ app.add_middleware(
 )
 
 @app.get('/')
-def hello_world():
-    return "API is running"
+def root():
+    return {"status": "API is running"}
 
 # Register the routers
 app.include_router(upload.router, tags=["upload"])
