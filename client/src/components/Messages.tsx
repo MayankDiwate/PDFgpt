@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import aiLogo from "../assets/ai-logo.svg";
+import ReactMarkdown from "react-markdown";
 
 import { RootState } from "../redux/store";
 
@@ -39,7 +40,7 @@ const MessageList = () => {
             <div className="text-gray-800 font-medium">
               {message.role === "assistant" ? "Assistant" : "You"}
             </div>
-            <p className="text-gray-600">{message.content}</p>
+            <ReactMarkdown className="text-gray-600">{message.content}</ReactMarkdown>
           </div>
         </div>
       ))}

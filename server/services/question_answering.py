@@ -1,9 +1,11 @@
-import os
 from typing import Optional
-from utils import get_text_chunks, get_vectorstore
-from huggingface_hub import InferenceClient
-from transformers import pipeline
+
+from env import HUGGINGFACEHUB_API_TOKEN, OPENAI_API_KEY
+# from transformers import pipeline
 from fastapi import HTTPException
+from huggingface_hub import InferenceClient
+from utils import get_text_chunks, get_vectorstore
+from langchain_openai import OpenAI
 
 def generate_answer(question: str, document_content: str, model_type: Optional[str] = "huggingface") -> str:
     """
@@ -26,11 +28,11 @@ def generate_answer(question: str, document_content: str, model_type: Optional[s
         vectorstore = get_vectorstore(texts)
         
         if model_type == "huggingface":
-            if not os.getenv("HUGGINGFACEHUB_API_TOKEN"):
+            if not HUGGINGFACEHUB_API_TOKEN:
                 raise ValueError("HuggingFace API token not found")
             
             # Initialize HuggingFace Hub client
-            client = InferenceClient(token=os.getenv("HUGGINGFACEHUB_API_TOKEN"))
+            client = InferenceClient(token=HUGGINGFACEHUB_API_TOKEN)
             
             # Get more relevant documents and combine with weights
             relevant_docs = vectorstore.similarity_search_with_score(question, k=5)
@@ -59,8 +61,8 @@ def generate_answer(question: str, document_content: str, model_type: Optional[s
             # Configure generation parameters for longer, more detailed output
             response = client.text_generation(
                 prompt,
-                model="google/flan-t5-large",  # You could also use larger models like flan-t5-large
-                max_new_tokens=250,  # Increased token limit
+                model="meta-llama/Llama-3.2-3B-Instruct",  # You could also use larger models like flan-t5-large
+                max_new_tokens=2048,  # Increased token limit
                 temperature=0.7,  # Slightly increased for more creative responses
                 do_sample=True,
             )
@@ -79,10 +81,9 @@ def generate_answer(question: str, document_content: str, model_type: Optional[s
 
         elif model_type == "openai":
             # Using OpenAI
-            if not os.getenv("OPENAI_API_KEY"):
+            if not OPENAI_API_KEY:
                 raise ValueError("OpenAI API key not found")
             
-            from langchain_openai import OpenAI
             llm = OpenAI(
                 temperature=0.7,
                 max_tokens=500
@@ -103,22 +104,6 @@ def generate_answer(question: str, document_content: str, model_type: Optional[s
             response = llm.predict(prompt)
             return response
 
-        elif model_type == "local":
-            # Using local HuggingFace pipeline
-            qa_pipeline = pipeline(
-                "question-answering",
-                model="distilbert-base-cased-distilled-squad",
-                tokenizer="distilbert-base-cased-distilled-squad"
-            )
-            
-            # For local model, we'll use a simpler approach
-            most_relevant_doc = vectorstore.similarity_search(question, k=1)[0]
-            
-            result = qa_pipeline(
-                question=question,
-                context=most_relevant_doc.page_content
-            )
-            return result['answer']
 
         else:
             raise ValueError(f"Unsupported model type: {model_type}")
