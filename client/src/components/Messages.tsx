@@ -11,36 +11,38 @@ const MessageList = () => {
   const isLoading = useSelector((state: RootState) => state.messages.isLoading);
 
   useEffect(() => {
+    // Scroll to the bottom of the message list whenever messages change
     if (messageListRef.current) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
-  }, [messages.length]);
+  }, [messages]);
 
   return (
-    <div>
+    <div
+      ref={messageListRef}
+      className="overflow-y-auto max-h-[calc(100vh-160px)]"
+    >
       {messages.map((message, index) => (
-        <div
-          className="flex items-start space-x-4 my-4"
-          key={index}
-          ref={messageListRef}
-        >
+        <div className="flex items-start space-x-4 my-4" key={index}>
           <div
             className={`
-          rounded-full flex items-center justify-center text-lg w-10 h-10 font-medium
-          ${message.role === "user" ? "bg-purple-300 text-white" : ""}
-        `}
+              rounded-full flex items-center justify-center text-lg w-10 h-10 font-medium
+              ${message.role === "user" ? "bg-purple-300 text-white" : ""}
+            `}
           >
             {message.role === "user" ? (
               "S"
             ) : (
-              <img src={aiLogo} alt="AI Planet" />
+              <img src={aiLogo} alt="AI Planet" width={40} className="min-w-10" />
             )}
           </div>
           <div className="flex-1">
             <div className="text-gray-800 font-medium">
               {message.role === "assistant" ? "Assistant" : "You"}
             </div>
-            <ReactMarkdown className="text-gray-600">{message.content}</ReactMarkdown>
+            <ReactMarkdown className="text-gray-600">
+              {message.content}
+            </ReactMarkdown>
           </div>
         </div>
       ))}

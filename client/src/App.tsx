@@ -11,7 +11,7 @@ const App: React.FC = () => {
 
       <Toaster reverseOrder={false} position="top-center" />
 
-      <main className="flex-1 max-w-7xl mx-auto px-20 max-h-[calc(100vh-160px)] w-full overflow-y-auto">
+      <main className="flex-1 max-w-7xl mx-4 md:mx-auto md:px-10 lg:px-20 max-h-[calc(100vh-160px)] w-full overflow-y-auto">
         <MessageList />
       </main>
 
